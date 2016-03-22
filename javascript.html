@@ -1,0 +1,22 @@
+<h1>Validar RUT!<br>JavaScript</h1>
+
+<p>Enviado por Mañungo</p>
+
+<pre>
+
+function dv(T){var M=0,S=1;for(;T;T=Math.floor(T/10))
+S=(S+T%10*(9-M++%6))%11;return S?S-1:'k';}
+
+</pre>
+
+<script language="javascript">
+<!--
+// Autor: Mannungo
+function dv(T){var M=0,S=1;for(;T;T=Math.floor(T/10))
+S=(S+T%10*(9-M++%6))%11;return S?S-1:'k';}
+//-->
+</script>
+<form>
+<input type="text" name="rut" size="10" maxlength="10">
+<input type="button" value=" Probar! " onclick="alert(dv(rut.value))">
+</form>

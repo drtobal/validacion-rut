@@ -1,0 +1,22 @@
+<h1>Propiedades del Algoritmo</h1>
+
+<p>
+En <a href="http://www.ee.unb.ca/tervo/ee4253/isbn.html">http://www.ee.unb.ca/tervo/ee4253/isbn.html</a>
+se explican varias propiedades sobre la detección de errores mediante el algoritmo del módulo 11.
+</p>
+
+<p>
+El algoritmo que se utiliza para validar el RUT en Chile es una modificación del algoritmo que
+se explica en esa página, y seguramente fue modificado por algún astuto del registro civil
+que no sabía mucho de matemáticas, cuando empezaron a necesitar RUTs de más de 6 cifras.
+</p>
+
+<p>
+El algoritmo del módulo 11 es capaz de detectar errores en cualquiera de los dígitos
+y también detectar algunos digítos han sido intercambiados (ej "43" en vez de "34" ).<br>
+Si bien, cualquier número primo mayor que 10 se puede utilizar como factor para el módulo,
+el resto de una división por 11 se puede calcular sin hacer ninguna división, sólo sumas y restas
+lo que es más eficiente.
+</p>
+
+<p>Se utiliza la letra K cuando el resultado es 10 porque la K es la 11-ésima letra del abecedario</p>

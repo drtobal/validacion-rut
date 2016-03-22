@@ -1,0 +1,17 @@
+<h1>Validar RUT!<br>Python</h1>
+
+<p>Enviado por Roberto Bonvallet</p>
+<pre>
+#!/usr/bin/python
+"""Imprime digito verificador del RUT.
+
+Uso:  echo 11222333 | python rut.py"""
+__author__ = "Roberto Bonvallet <rbonvall@alumnos.inf.utfsm.cl>"
+
+print (range(10) + ['k'])[
+    11 - sum(
+        [int(digit) * factor
+         for digit, factor in zip(raw_input()[::-1], 2 * range(2,8))]
+    ) % 11
+]
+</pre>

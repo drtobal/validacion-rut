@@ -1,0 +1,28 @@
+<h1>Validar RUT!<br>Visual Basic</h1>
+
+<pre>
+
+Public Function RutDigito(ByVal Rut As Long) As String
+    Dim Digito      As Integer
+    Dim Contador    As Integer
+    Dim Multiplo    As Integer
+    Dim Acumulador  As Integer
+
+    Contador = 2
+    Acumulador = 0
+    While Rut <> 0
+      Multiplo = (Rut Mod 10) * Contador
+      Acumulador = Acumulador + Multiplo
+      Rut = Rut \ 10
+      Contador = Contador + 1
+      If Contador = 8 Then
+        Contador = 2
+      End If
+    Wend
+    Digito = 11 - (Acumulador Mod 11)
+    RutDigito = CStr(Digito)
+    If Digito = 10 Then RutDigito = "K"
+    If Digito = 11 Then RutDigito = "0"
+  End Function
+
+</pre>

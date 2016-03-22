@@ -1,0 +1,31 @@
+<h1>Validar RUT!<br>User-RPL, Calculadoras HP</h1>
+
+<p>Enviado por German González</p>
+<p>Nota: Solo hay que poner el numero en el stack y ejecutarlo.</p>
+
+<pre>
+
+&lt;&lt; -&gt;STR { } SWAP DUP
+SIZE 1 - 1 SWAP
+FOR i DUP TAIL
+SWAP HEAD ROT SWAP
+OBJ-> + SWAP
+ NEXT OBJ-> + DUP
+SIZE 7 ==
+ IF
+ THEN REVLIST 0 +
+ END
+ { 2 3 4 5 6 7 2 3 } * OBJ-> DROP +
+ + + + + + + 11 MOD
+DUP 1 ==
+ IF
+ THEN "K"
+ ELSE DUP 0 ==
+   IF
+   THEN 0 DROP
+   ELSE 11 SWAP -
+   END
+ END
+&gt;&gt;
+
+</pre>

@@ -1,0 +1,11 @@
+<h1>Validar RUT!<br>Maple</h1>
+
+<p>Enviado por Felipe Olmos</p>
+<pre>
+
+v:=proc(R) local M,S,T:M:=0:S:=1:for T from R while T&gt;0  do
+S:=(S+(T mod 10)*(9-(M mod 6)))mod 11:T:=floor((T-10)/10):M:=M+1:
+od:
+`if`(S>0,S-1,k):end proc;
+
+</pre>

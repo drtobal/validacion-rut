@@ -1,0 +1,59 @@
+<h1>Validar RUT!<br>COBOL</h1>
+
+<p>Enviado por Gabriel Florit</p>
+<pre>
+
+rutdig.
+   move spaces to ctrl
+   display nada line 10 position 57
+	accept rut-aux  no beep
+	line 10 position 57
+	inspect rut-aux replacing leading " " by "0"
+	if numerostr is numeric and guion = "-"
+	  move 0 to suma
+	  move 2 to numerador
+	perform varying puntero-vector from 8 by -1
+	until puntero-vector = 0
+	  compute suma = suma +
+	 numeroval(puntero-vector) * numerador
+	 add 1 to numerador
+	 if numerador = 8 move 2 to numerador end-if
+	end-perform
+	divide suma by 11 giving entero remainder resto
+	compute dig = 11 - resto
+	if dig = 10
+	move "k" to digi2
+	else
+	if dig = 11
+	move "0" to digi2
+	end-if
+	end-if
+	if digito = "k"
+	move "k" to digito
+	end-if
+	if digito not = digi2
+	display spaces
+	line 10 position 57
+   display spaces line 10 position 60
+	display "digito no corresponde"
+	line 10 position 57 blink
+   accept nulo
+   display nada line 10 position 57
+
+   else
+   move rut-aux to rut-w
+   move "e" to ctrl
+	end-if
+
+  else
+	display spaces
+	line 10 position 57
+   display spaces line 10 position 62
+	display "Rut mal ingresado!!"
+	line 10 position 57 blink
+   accept nulo
+   display nada
+   line 10 position 57
+
+	end-if.
+</pre>

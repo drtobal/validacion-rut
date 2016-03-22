@@ -1,0 +1,23 @@
+<h1>Validar RUT!<br>Excel</h1>
+
+<pre>
+
+Function dv(a)
+    j = 2
+    For i = 0 To Len(a) - 1
+        aux = aux + Val(Mid$(a, Len(a) - i, 1)) * j
+        If j > 6 Then
+            j = 2
+        Else
+            j = j + 1
+        End If
+    Next i
+    aux1 = 11 - (aux Mod 11)
+    If aux1 &lt; 10 Then
+        dv = aux1
+    Else
+        dv = "K"
+    End If
+End Function
+
+</pre>

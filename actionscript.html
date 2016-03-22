@@ -1,0 +1,55 @@
+<h1>Validar RUT!<br>ActionScript, Flash</h1>
+
+<p>Enviado por Cristobal Brenner</p>
+<p>
+<strong>Nota del Autor:</strong><br>
+El código devuelve un true o false solamente, el que la persona que diseñe tiene que asignar la función que quiera. Usa dos campos de textos de input; uno de la pate numerica con la variable "xRut" y otro con el campo del dígito verificador "Dv".
+Este código va directamente en el boton de "aceptar" en el formulario en cuestión:
+</p>
+
+<pre>
+
+on (release){
+  // Definicion de Variables Utilizadas
+  var Suma = 0;
+  var rut = xRut;
+  var NumMag = 2;
+  var Resto = 0;
+  // Defino el arreglo con los posibles digitos verificadores
+  var DigVer = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
+  var ParteNumerica = new Array();
+
+  // Valida que el rut no este vacio
+  if (rut.length == 0) { return false; }
+
+  // Copio solo la parte numerica, sin espacios ni puntos
+  // en otra variable para calcular el digito verificador
+  for (j=0, i=0; j&lt;rut.length; j++)
+  {
+   if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-')
+ {
+    ParteNumerica[i] = rut.charAt(j);
+ ++i;
+    }
+  }
+
+  // Se calcula el digito verificador del rut
+  for (i=ParteNumerica.length-1; i>=0; i--, NumMag++)
+  {
+   Suma += ParteNumerica[i]*NumMag;
+   trace(Suma +' '+  ParteNumerica[i] +' '+ NumMag);
+   if (NumMag>6) { NumMag = 1; }
+  }
+
+  Resto = 11-(Suma%11);
+  if (DigVer[Resto] != Dv.toUpperCase())
+  {
+ trace("Rut válido");
+  }
+   else
+   {
+ trace("Rut no válido");
+   }
+ }
+
+</pre>

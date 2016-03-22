@@ -1,0 +1,28 @@
+<h1>Validar RUT!<br>Delphi</h1>
+
+<p>Enviado por Gabriel Florit</p>
+<pre>
+
+Function ValRut(Rut: String):String;
+ var
+    Cuenta, Suma, totalrut, Revisa : Integer;
+ begin
+    Suma:=2;
+    TotalRut:=0;
+    For Cuenta:=Length(Trim(rut)) downto 1 do
+      begin
+         if Suma>7 then Suma:=2;
+         Totalrut:=Totalrut+((StrToInt(copy(rut,cuenta,1)))*suma);
+         Suma:=Suma+1;
+      end;
+    Revisa:=Round((frac(Totalrut/11)*10)+0.5);
+    Revisa:=11-revisa;
+    If Revisa=10 then Result:='K'
+       else
+         begin
+           If Revisa=11 then Result:='0'
+              else Result:=IntToStr(Revisa);
+         end;
+ end;
+
+</pre>

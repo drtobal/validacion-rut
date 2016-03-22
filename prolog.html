@@ -1,0 +1,11 @@
+<h1>Validar RUT!<br>Prolog</h1>
+
+<p>Enviado por Mañungo</p>
+<pre>
+
+c([],0,1).
+c([H|T],G,R):-c(T,F,S),R is (S+H*(9-F))mod 11,G is(F+1)mod 6.
+dv(L,'k'):-c(L,_,0).
+dv(L,R):-c(L,_,S),R is S-1.
+
+</pre>

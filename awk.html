@@ -1,0 +1,28 @@
+<h1>Validar RUT!<br>AWK</h1>
+
+<p>Enviado por Hernán Aburto</p>
+<pre>
+
+BEGIN{
+T=ARGV[1];
+v=1;
+for(i=2;i<=9;i++)
+{
+	if (i==8) v=2;
+	else v++;
+	S = S + v * (T%10);
+	T = int(T/10);
+}
+S = 11 - S%11;
+if (S==10) {print "k";}
+else if (S==11) print 0;
+else print S;
+}
+</pre>
+<hr>
+<pre>
+Ejemplo de uso:
+$ awk -f rut.awk 11111111
+1
+
+</pre>

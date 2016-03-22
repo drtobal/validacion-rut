@@ -1,0 +1,38 @@
+<h1>Validar RUT!<br><a href="http://www.mozart-oz.org/">Oz</a></h1>
+
+<p>Enviado por Rafael Meneses Osorio</p>
+<pre>
+
+declare
+fun {DigitoVerificador RutSinVerificador}
+
+   fun {GetDigitos Rut}
+      if Rut&gt;0 then
+	Rut mod 10|{GetDigitos Rut div 10}
+      else
+	nil
+      end
+   end
+
+   fun {Calcula Digitos C }
+      if Digitos == nil then
+	0
+      else
+	D Resto in
+	D|Resto=Digitos
+	((C mod 6)+2)* D+{Calcula Resto C+1}
+      end
+   end
+
+   R = 11- {Calcula {GetDigitos RutSinVerificador} 0} mod 11
+in
+   case R of 10 then 'k'
+   [] 11 then 0
+   else R  end
+end
+</pre>
+
+<pre>
+%ejemplo de Uso:
+{Browse {DigitoVerificador 9872006}}
+</pre>

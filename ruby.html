@@ -1,0 +1,32 @@
+<h1>Validar RUT!<br>Ruby</h1>
+
+<p>Envaido por Daniel Bobadilla Leal</p>
+
+<pre>
+
+#!/usr/local/bin/ruby
+# Digito rut verificador hecho en ruby (http://www.ruby-lang.org)
+# Usando la 1era version del Algortimo en palabras :)
+# Uso ./ruby.rb <RUT_SIN_DV>
+
+T=ARGV[0].to_i
+v=1
+	S=0
+for i in (2..9)
+	if i == 8
+	v=2
+	else v+=1
+	end
+S+=v*(T%10)
+	T/=10
+	end
+	S = 11 - S%11
+	if S == 11
+	print 0, "\n"
+	elsif S == 10
+	print "K", "\n"
+	else
+	print S, "\n"
+	end
+
+</pre>

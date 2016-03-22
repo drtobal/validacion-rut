@@ -1,0 +1,62 @@
+<h1>Validar RUT!<br>PostgreSQL</h1>
+
+<p>Enviado por Andrés Junge</p>
+<pre>
+
+CREATE OR REPLACE FUNCTION digito_verificador(varchar)
+RETURNS char AS '
+DECLARE
+	rut ALIAS FOR $1;
+	rut_cero varchar(8);
+	valor int;
+BEGIN
+	valor := 0;
+	rut_cero := lpad(rut,8,''0'');
+
+	valor := valor + (substring(rut_cero,8,1)::int8)*2;
+	valor := valor + (substring(rut_cero,7,1)::int8)*3;
+	valor := valor + (substring(rut_cero,6,1)::int8)*4;
+	valor := valor + (substring(rut_cero,5,1)::int8)*5;
+	valor := valor + (substring(rut_cero,4,1)::int8)*6;
+	valor := valor + (substring(rut_cero,3,1)::int8)*7;
+	valor := valor + (substring(rut_cero,2,1)::int8)*2;
+	valor := valor + (substring(rut_cero,1,1)::int8)*3;
+
+	valor := valor % 11;
+
+	IF valor =1 THEN
+		RETURN ''K'';
+	END IF;
+	IF valor =0 THEN
+		RETURN ''0'';
+	END IF;
+	IF valor&gt;1 AND valor&lt;11 THEN
+		RETURN (11-valor)::char;
+	END IF;
+END
+' LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION valida_rut(varchar(9))
+RETURNS bool AS '
+DECLARE
+	rutfull ALIAS FOR $1;
+	rutfull_cero varchar(9);
+	rut varchar(8);
+	dv char;
+BEGIN
+	IF rutfull IS NULL THEN
+		RETURN TRUE;
+	END IF;
+
+	rutfull_cero := lpad(rutfull,9,''0'');
+	rut:= substr(rutfull_cero,0,9);
+	dv := substr(rutfull_cero,9,1);
+
+	IF digito_verificador(rut)=upper(dv) THEN
+		RETURN TRUE;
+	ELSE
+		RETURN FALSE;
+	END IF;
+END
+' LANGUAGE plpgsql;
+
+</pre>

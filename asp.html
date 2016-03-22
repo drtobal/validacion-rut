@@ -1,0 +1,28 @@
+<h1>Validar RUT!<br>ASP</h1>
+
+<p>Enviado por Rodolfo Barriga</p>
+<pre>
+
+Function codigo_veri(rut)
+	tur=strreverse(rut)
+	mult = 2
+
+	for i = 1 to len(tur)
+		if mult > 7 then mult = 2 end if
+
+		suma = mult * mid(tur,i,1) + suma
+		mult = mult +1
+	next
+
+	valor = 11 - (suma mod 11)
+
+	if valor = 11 then
+		codigo_veri = "0"
+	elseif valor = 10 then
+		codigo_veri = "k"
+	else
+		codigo_veri = valor
+	end if
+end function
+
+</pre>

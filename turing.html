@@ -1,0 +1,31 @@
+<h1>Validar RUT!<br>Turing</h1>
+
+<p>Enviado por Mañungo</p>
+<pre>
+
+function dv( n : real ) : string
+	var aux, resultado : real
+	var valor : int
+	aux := n
+	resultado := 0
+	valor := 1
+
+	for i : 2 .. 9
+		if (i = 8) then
+			valor := 2
+		else
+			valor := valor + 1
+		end if
+		resultado := resultado + valor * (aux mod 10)
+		aux := aux div 10
+	end for
+
+	resultado := 11 - ( resultado mod 11 )
+	if (resultado = 10) then
+		result "k"
+	else
+		result chr (round (resultado + 48))
+	end if
+end dv
+
+</pre>

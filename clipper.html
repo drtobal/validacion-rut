@@ -1,0 +1,33 @@
+<h1>Validar RUT!<br>Clipper</h1>
+
+<p>Enviado por Andrés Sepúlveda</p>
+<pre>
+
+FUNCTION validarut(rut)
+
+Local ext:=SUBSTR(rut,12,1)
+local x:=0
+local divisor:={3,2,7,6,5,4,3,2}
+Local suma:=0
+local vuelta := .F.
+rut:=SUBSTR(rut,1,2)+SUBSTR(rut,4,3)+SUBSTR(rut,8,3)
+if ext == "k"
+    ext:= "K"
+endif
+FOR x := 1 TO 8
+    suma += VAL(SUBSTR(rut,x,1))* divisor [x]
+NEXT
+suma := 11 - suma%11
+if (suma == 10 .and. ext == "K") .OR. (suma == 11 .and. ext == "0")
+    vuelta=.T.
+    elseif suma == VAL(ext)
+    vuelta=.T.
+endif
+if vuelta==.T.
+        tone(7800,2)
+else
+        tone(1800,2)
+endif
+RETURN (vuelta)
+
+</pre>

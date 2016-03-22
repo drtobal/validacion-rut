@@ -1,0 +1,93 @@
+<h1>Validar RUT!<br>Pascal</h1>
+
+<pre>
+
+Program DigitoVerificador;
+
+Uses Crt;
+
+Var s, d: String;
+    elFactor, i, a, digito, dummy: Integer;
+
+PROCEDURE Input(mensaje: String; VAR numero: String);
+VAR s: String; ch: Char;
+    ready: Boolean;
+BEGIN
+
+  s:='';
+  ready:=FALSE;
+  Write(mensaje);
+
+  REPEAT
+    ch:=ReadKey;
+    CASE ch OF
+      '0': IF s='' THEN BEGIN
+              s:=ch;
+              Write(ch);
+           END ELSE IF (s&lt;&gt;'0') THEN BEGIN
+                       s:=Concat(s,ch);
+                       Write(ch);
+           END;
+      '1'..'9': IF (s='0') THEN BEGIN
+                   s:=ch;
+                   Write(#8, s);
+                END ELSE BEGIN
+                   s:=Concat(s,ch);
+                   Write(ch);
+                END;
+      #8:  IF s&lt;&gt;'' THEN BEGIN          { backspace elimina el último }
+              s:=Copy(s,1,Length(s)-1);       { caracter del string
+(siempre }
+              Write(#8,' ',#8);               { que éste no sea vacío) }
+           END;
+      #13: IF (s='') THEN Write(#7) ELSE ready:=TRUE;
+                                           { ENTER: listo para transformar a }
+                                           { número, pero no acepta uno nulo }
+      ELSE ;  { no hacer caso a ninguna otra tecla }
+    END; {case}
+  UNTIL ready;
+
+  Writeln;
+  numero:=s; { retornar el valor ingresado }
+
+END;
+
+
+FUNCTION Factor: Integer;
+BEGIN
+  if ((elFactor&lt;2) or (elFactor&gt;7)) THEN BEGIN
+     writeln('ERROR EN LA EJECUCION DEL PROGRAMA - MEJOR ABORTO.');
+     Halt(1);
+  END ELSE BEGIN
+     elFactor:=elFactor+1;
+     IF (elFactor=8) THEN elFactor:=2;
+  END;
+  Factor:=elFactor;
+END;
+
+
+BEGIN
+
+  Writeln('Para finalizar, ingrese el RUT 0');
+  Writeln;
+
+  REPEAT
+    elFactor:=7; a:=0;
+    Input('Ingrese el RUT sin guión ni dígito verificador :', s);
+
+    FOR i:=Length(s) DOWNTO 1 DO BEGIN
+      d:=Copy(s,i,1);
+      Val(d,digito,dummy);
+      a:=a+digito*Factor;
+    END;
+    a:=11-(a MOD 11); IF (a=11) THEN a:=0;
+
+    write('El RUT ingresado es: ', s, '. El dígito verificador es: ');
+    IF (a&lt;&gt;10) THEN writeln(a) ELSE writeln('K');
+    writeln;
+
+  UNTIL (s='0');
+
+END.
+
+</pre>

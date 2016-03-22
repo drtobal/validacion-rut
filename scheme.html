@@ -1,0 +1,23 @@
+<h1>Validar RUT!<br>Scheme</h1>
+
+<p>Enviado por Rafael Meneses Osorio</p>
+<p>Ejemplo: &gt;(verificador 55555555)<br>&gt;5</p>
+
+<pre>
+
+(define (verificador2 rutSinVerificador)
+  (let ((R
+	 (- 11
+	    (remainder
+	     (let calculo ((restoRut rutSinVerificador) (c 0))
+	       (let ((digito (remainder restoRut 10)))
+		 (cond ((= restoRut 0) 0)
+		       (else
+			(+ (* (+ (remainder c 6) 2) digito)
+			   (calculo (/ (- restoRut digito) 10) (+ c 1)))))))
+	     11))))
+    (cond ((= R 10) 'k)
+	  ((= R 11)  0)
+	  (else R))))
+
+</pre>

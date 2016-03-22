@@ -1,0 +1,125 @@
+<h1>Validar RUT!<br>AS400</h1>
+
+<p>Enviado por Rodrigo Riveros</p>
+<pre>
+
+En la hoja I crear las DS
+
+I            DS
+I                                        1  10 RUT
+I                                        1   1 D1A
+I                                        2   2 D2A
+I                                        3   3 D3A
+I                                        4   4 D4A
+I                                        5   5 D5A
+I                                        6   6 D6A
+I                                        7   7 D7A
+I                                        8   8 D8A
+I                                        9   9 GUIA
+I                                       10  10 DIGA
+ *
+I            DS
+I                                        1   8 RUTVAL
+I                                        1   1 D1V
+I                                        2   2 D2V
+I                                        3   3 D3V
+I                                        4   4 D4V
+I                                        5   5 D5V
+I                                        6   6 D6V
+I                                        7   7 D7V
+I                                        8   8 D8V
+I            DS
+I                                        1  10 RUTOK
+I                                        1   10D1
+I                                        2   20D2
+I                                        3   30D3
+I                                        4   40D4
+I                                        5   50D5
+I                                        6   60D6
+I                                        7   70D7
+I                                        8   80D8
+I                                        9   9 RAYA
+I                                       10  10 DIGV
+
+Luego en la Hoja C, Validacion.
+
+
+ C  N03                EXSR VALIDA
+
+
+ *---------------------------------------------------------------*
+ * VALIDA: VALIDA RUT                                            *
+ *---------------------------------------------------------------*
+ C           VALIDA    BEGSR
+ *
+ C                     MOVE RUTDS     RUT                           ' RUTDS = rut ingresado por pantalla'
+ C                     EXSR VALID
+ C           *IN40     IFEQ '1'
+ C           D1        MULT 3         D1X     30
+ C           D2        MULT 2         D2X     30
+ C           D3        MULT 7         D3X     30
+ C           D4        MULT 6         D4X     30
+ C           D5        MULT 5         D5X     30
+ C           D6        MULT 4         D6X     30
+ C           D7        MULT 3         D7X     30
+ C           D8        MULT 2         D8X     30
+ C                     ADD  D1X       SUMA   130
+ C                     ADD  D2X       SUMA
+ C                     ADD  D3X       SUMA
+ C                     ADD  D4X       SUMA
+ C                     ADD  D5X       SUMA
+ C                     ADD  D6X       SUMA
+ C                     ADD  D7X       SUMA
+ C                     ADD  D8X       SUMA
+ C                     DIV  11        SUMA
+ C                     MVR            RESTO   20
+ C           11        SUB  RESTO     DIG     20
+ C           DIG       IFEQ 10
+ C                     MOVE 'K'       DIGF    1
+ C                     ELSE
+ C           DIG       IFEQ 11
+ C                     MOVE '0'       DIGF
+ C                     ELSE
+ C                     MOVE DIG       DIGF
+ C                     ENDIF
+ C                     ENDIF
+ C           DIGF      IFNE DIGV
+ C*                    EXSR ???????
+ C                     ELSE
+ C                     MOVEL'ERROR'   ERR    10
+ C                     ENDIF
+ C                     ENDIF
+ C                     SETON                     LR
+ C                     RETRN
+ C                     ENDSR
+  *---------------------------------------------------------------*
+  * VALID  : Valida Datos                                         *
+  *---------------------------------------------------------------*
+ C           VALID     BEGSR
+ C           D1A       IFEQ ' '
+ C                     MOVE *ZEROS    D1V
+ C                     ELSE
+ C                     MOVE D1A       D1V
+ C                     ENDIF
+ C                     MOVE D2A       D2V
+ C                     MOVE D3A       D3V
+ C                     MOVE D4A       D4V
+ C                     MOVE D5A       D5V
+ C                     MOVE D6A       D6V
+ C                     MOVE D7A       D7V
+ C                     MOVE D8A       D8V
+ C                     MOVELDIGA      DIGV
+ C                     TESTN          RUTVAL     40
+ C   40                MOVE D1V       D1
+ C   40                MOVE D2V       D2
+ C   40                MOVE D3V       D3
+ C   40                MOVE D4V       D4
+ C   40                MOVE D5V       D5
+ C   40                MOVE D6V       D6
+ C   40                MOVE D7V       D7
+ C   40                MOVE D8V       D8
+ C                     ENDSR
+ C*
+
+</pre>
+

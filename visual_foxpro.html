@@ -1,0 +1,41 @@
+<h1>Validar Rut!<br>Visual FoxPro</h1>
+
+<pre>
+
+FUNCTION Val_Rut
+ PARAMETERS rut,digver
+ STORE 0 TO suma
+ STORE 2 TO j
+ Largo = LEN(rut)
+
+ FOR i = Largo TO 1 STEP -1
+  Dig   = VAL(SUBSTR(rut,i,1))
+  suma = suma + (Dig * j)
+  IF j = 7
+   j = 1
+  ENDIF
+  j = j + 1
+ ENDFOR
+ RESTO = MOD(suma,11)
+ DO CASE
+  CASE RESTO = 0
+   dv = 0
+  CASE RESTO = 1
+   dv = "K"
+   IF digver = "k" OR digver = "K"
+    *   WAIT 'RUT INCORRECTO!!!' WINDOWS
+    RETURN .F.
+   ENDIF
+   RETURN .T.
+  OTHERWISE
+   dv = 11 - RESTO
+ ENDCASE
+ IF digver == ALLTRIM(STR(dv))
+  RETURN .T.
+ ELSE
+  * WAIT 'RUT INCORRECTO!!!' WINDOWS
+  RETURN .F.
+ ENDIF
+ENDFUNC
+
+</pre>
